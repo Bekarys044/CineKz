@@ -109,10 +109,10 @@ import user5 from "../assets/images/users_opinion/user5.jpg";
 import user6 from "../assets/images/users_opinion/user6.jpg";
 
 export const navItems = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "/" },
   { label: "New", href: "#" },
   { label: "Contact", href: "#" },
-  { label: "About me", href: "#" },
+  { label: "About Users", href: "/AboutUsers" },
 ];
 
 
@@ -306,4 +306,38 @@ export const communityLinks = [
   { href: "#", text: "Social Media" },
   { href: "#", text: "Write a Review" },
   { href: "#", text: "Affiliate Program" },
+];
+
+
+
+
+export const plans = [
+  {
+    title: "Free",
+    price: "0 ₸",
+    features: ["Access to Telegram group", "2 movies per week", "SD quality only"],
+    button: "Join",
+  },
+  {
+    title: "Standard",
+    price: "10,000 ₸ / month",
+    features: [
+      "Full Telegram access",
+      "HD quality movies",
+      "5 movies per week",
+      "Recommended selections",
+    ],
+    button: "Subscribe",
+  },
+  {
+    title: "Premium",
+    price: "30,000 ₸ / month",
+    features: [
+      "Telegram VIP group",
+      "4K quality movies",
+      "New movie every day",
+      "Add movies on request",
+    ],
+    button: "Subscribe",
+  },
 ];

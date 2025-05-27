@@ -1,58 +1,82 @@
-
 import { X } from "lucide-react";
 import LogoutIcon from '@mui/icons-material/Logout';
-import  { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
+function Form({ Close }) {
+  const [forminfo, setFormInfo] = useState({ email: "", password: "" });
+  const [check, setCheck] = useState(false);
+  const navigate = useNavigate();
 
-function Form( {Close} ) {
+  const handleChange = (e) => {
+    setFormInfo(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-
-   const [check, setCheck] = useState(false)
-   
-  
-   function Submite(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    close()
-   }
-
+    navigate("/aboutUsers", { state: forminfo }); // деректерді жіберу
+  };
 
   return (
-    <form className='bg-[var(--theme-bg)] flex flex-col gap-4 p-4  absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[400px]  shadow rounded'>
-           <section className='flex justify-end items-center'>
-               <X  onClick={Close} className='text-[var(--body-text-color)]'/> 
-           </section>
-           <div className="flex  justify-center items-center flex-shrink-0 text-[var(--footerhover)] ml-6 text-2xl font-bold cursor-pointer">
-                        KazMovie
-            </div>  
+    <form
+      onSubmit={handleSubmit}
+      className='bg-[var(--theme-bg)] flex flex-col gap-4 p-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[400px] shadow rounded'
+    >
+      <section className='flex justify-end items-center'>
+        <X onClick={Close} className='text-[var(--body-text-color)] cursor-pointer' />
+      </section>
 
-            <p className="text-[var(--body-text-color)] text-center text-[14px] md:text-[16px]">
-               log in with your account
-            </p>
+      <div className="text-2xl font-bold text-center text-[var(--footerhover)]">KazMovie</div>
 
-            <div className="w-[90%] mx-auto h-[1px] bg-[var(--body-text-color)]"></div>
-            
-            <div className="w-[90%] mx-auto flex flex-col gap-4">
-              <label>Gmail:</label>
-              <input type="text"  className="w-full px-2 py-2 mx-auto bg-[var(--border-white-color)] border-[1px] border-[var(--body-text-color)] hover:border-[var(--footerhover)] rounded-md"/>
-              <label>Password:</label>
-              <input type="password" className="w-full px-2 py-2 mx-auto bg-[var(--border-white-color)] border-[1px] border-[var(--body-text-color)] hover:border-[var(--footerhover)] rounded-md" />
+      <p className="text-center text-[var(--body-text-color)]">Log in with your account</p>
 
-              <div className="flex justify-between items-center mt-4">
-                  <div className="flex items-center gap-2">
-                    <input type="checkbox" checked={check} onChange={()=>  setCheck(!check)}     className="w-4 h-4 cursor-pointer" /> 
-                    <label className="text-[var(--body-text-color)] text-[14px] md:text-[16px]">Remember me</label>
-                  </div>
-                    <div className="flex justify-end items-center">
-                        <a href="#" className="text-[var(--footerhover)] text-[14px] md:text-[16px]">Forgot password?</a>
-                   </div>
-              </div>
-              <button onSubmit={Submite} type='Submit' className='w-full   duration-300  hover:bg-[var(--theme-color2)]  transition duration-600 cursor cursor-pointer bg-[var(--footerhover)] p-[6px] border-[1px] border-[var(--body-text-color)]  text-white mt-3   rounded'>
-                 <LogoutIcon className='text-white'/>  
-                 <span className="inline-block transition-transform duration-300 hover:translate-x-1">Sing in</span>
-              </button>
-            </div>
+      <div className="w-[90%] mx-auto h-[1px] bg-[var(--body-text-color)]"></div>
+
+      <div className="w-[90%] mx-auto flex flex-col gap-4">
+        <label>Email:</label>
+        <input
+          name="email"
+          value={forminfo.email}
+          onChange={handleChange}
+          type="text"
+          className="w-full px-2 py-2 bg-[var(--border-white-color)] border border-[var(--body-text-color)] hover:border-[var(--footerhover)] rounded-md"
+        />
+
+        <label>Password:</label>
+        <input
+          name="password"
+          value={forminfo.password}
+          onChange={handleChange}
+          type="password"
+          className="w-full px-2 py-2 bg-[var(--border-white-color)] border border-[var(--body-text-color)] hover:border-[var(--footerhover)] rounded-md"
+        />
+
+        <div className="flex justify-between items-center mt-2">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={check}
+              onChange={() => setCheck(!check)}
+              className="w-4 h-4 cursor-pointer"
+            />
+            <label className="text-[var(--body-text-color)]">Remember me</label>
+          </div>
+          <a href="#" className="text-[var(--footerhover)]">Forgot password?</a>
+        </div>
+
+        <button
+          type='submit'
+          className='w-full bg-[var(--footerhover)] hover:bg-[var(--theme-color2)] text-white p-[6px] border border-[var(--body-text-color)] rounded flex items-center justify-center gap-2 mt-2'
+        >
+          <LogoutIcon className='text-white' />
+          <span className="hover:translate-x-1 transition-transform">Sign in</span>
+        </button>
+      </div>
     </form>
-  )
+  );
 }
 
-export default Form
+export default Form;
